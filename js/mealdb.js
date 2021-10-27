@@ -1,8 +1,11 @@
+document.getElementById('error-message').style.display = 'none';
+
 const searchFood = () => {
   const searchField = document.getElementById('search-field');
   const searchText = searchField.value;
   // clear search input field
   searchField.value = '';
+  document.getElementById('error-message').style.display = 'none';
 
   if (searchText == '') {
     // please write something to display (H.W)
@@ -25,8 +28,13 @@ const searchFood = () => {
     // console.log(url);
     fetch(url)
       .then(res => res.json())
-      .then(data => displaySearchResult(data.meals));
+      .then(data => displaySearchResult(data.meals))
+      .catch(error => displayError(error));
   }
+}
+
+const displayError = error => {
+  document.getElementById('error-message').style.display = 'block';
 }
 
 const displaySearchResult = meals => {
